@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Resume</title>
+<link rel='stylesheet' href='css/css.style'>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+    
+    <script src="js/angular.min.js"></script>
+    <script type="text/javascript">
+
+
+		var myApp = angular.module('myApp',[]);
+
+		myApp.controller('GreetingController', ['$scope', '$http', function($scope, $http) {
+		  // $scope.greeting = 'Developed by: Glester B. Dionaldo';
+
+		  // Simple GET request example:
+			$http({
+			  method: 'GET',
+			  url: 'https://newsapi.org/v1/articles?source=techcrunch&apiKey=afd929c4000b46b7aba3db9dc125407b'
+			}).then(function successCallback(response) {
+			    // this callback will be called asynchronously
+			    // when the response is available
+			    $scope.articles = response.data
+			  }, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			  });
+
+
+		}]);
+    </script>
+
+ </head>
+<body>
+	<center>
+ <div class="container">
+		<div ng-app="myApp" ng-controller="GreetingController">
+			{{greeting}}
+
+<div class="panel panel-success">
+ <div class="panel-heading">
+ <h3 class="panel-title">Top News</h3>
+ </div>
+ <div class="panel-body">
+			
+			<div ng-repeat="n in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] track by $index">
+				<h3>{{articles.articles[n].title}}</h3>
+				<li>{{articles.articles[n].author}}</li>
+					{{articles.articles[n].publishedAt}}
+				<br>{{articles.articles[n].description}}
+				<br><p><a href="{{articles.articles[n].url}}" target="_blank" class="btn btn-info" role="button">Source</a></p>
+				<br><img src="{{articles.articles[n].urlToImage}}" width="50%" height="50%" />
+				<hr>	
+				
+			</div>
+ </div>
+</div>
+
+		</div>
+  </div>
+  	</center>
+ </body> 
+  <footer>
+  <p>Mobile Application 2016</p>
+  <p>Developed by: Glester B. Dionaldo</p>
+  <p>Powered by: <a href="https://newsapi.org/">
+  NewsAPI.org</a>.</p>
+</footer>
+
